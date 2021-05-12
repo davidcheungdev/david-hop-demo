@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: david-hop-demo
+  annotations:
+    # nginx ingress
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # cert-manager
+    ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: clusterissuer-letsencrypt-production
+    # CORS
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://david-hop-demo.zero-david.online"
+
+spec:
+  rules:
+  - host: david-hop-demo-api.zero-david.online
+    http:
+      paths:
+        - path: /(.*)
+          backend:
+            serviceName: david-hop-demo
+            servicePort: http
+  tls:
+  - hosts:
+    - david-hop-demo.zero-david.online
+    secretName: david-hop-demo-tls-secret
