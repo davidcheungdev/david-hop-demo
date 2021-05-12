@@ -24,5 +24,5 @@ spec:
             servicePort: http
   tls:
   - hosts:
-    - david-hop-demo.zero-david.online
+    - david-hop-demo-api.zero-david.online
     secretName: david-hop-demo-tls-secret
